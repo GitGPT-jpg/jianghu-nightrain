@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+**English** | [简体中文](README.zh.md)
 
-## Getting Started
+# 江湖夜雨十年灯
 
-First, run the development server:
+A gamified personal growth system with RPG mechanics — AI-powered goal decomposition, task execution, XP & stamina rewards, multi-device cloud sync, PWA, and Electron desktop app.
+
+## ✨ Features
+
+- **🏠 Minimalist Dashboard** — Focus view: active tasks, current phase progress, and streak counter
+- **📊 System Panel** — Full overview of main quests, phases, achievement titles, attributes, rewards pool, and inspiration cards
+- **🤖 AI Planning** — Enter a goal, deadline, and reward; AI auto-generates phases, weekly long-term tasks, and daily small tasks
+- **☁️ Cloud Sync** — Passwordless email magic-link login via Supabase with multi-device state sync
+- **📱 PWA** — Install as an app on any mobile or desktop browser
+- **🖥️ Electron Desktop** — Native desktop shell with Windows NSIS installer
+
+## 🛠 Tech Stack
+
+| Layer | Technologies |
+|-------|-------------|
+| Frontend | Next.js 15, React 19, TypeScript, Tailwind CSS v4 |
+| Backend | Next.js API Routes (serverless) |
+| Database | Supabase (PostgreSQL + Row Level Security) |
+| AI | OpenAI-compatible API — default `gpt-4.1-mini`, works with DeepSeek / Groq / Ollama |
+| Desktop | Electron 41 + electron-builder |
+| Auth | Supabase magic-link (passwordless) |
+
+## 🚀 Quick Start
+
+**Prerequisites**: Node.js 18+, pnpm (`npm install -g pnpm`)
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/GitGPT-jpg/jianghu-nightrain.git
+cd jianghu-nightrain
+pnpm install
+pnpm dev          # → http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙️ Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy `.env.example` to `.env.local`:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+# Supabase — optional, app works fully offline without these
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_SUPABASE_INSPIRATION_BUCKET=inspiration
 
-## Learn More
+# OpenAI-compatible API — required for AI planning
+OPENAI_API_KEY=
+OPENAI_BASE_URL=https://api.openai.com/v1
+OPENAI_MODEL=gpt-4.1-mini
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🖥️ Desktop App
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm desktop:dev    # Open Electron shell in dev mode
+pnpm desktop:build  # Build Windows installer → desktop-dist/
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ☁️ Enable Cloud Sync
 
-## Deploy on Vercel
+1. Create a free project at [supabase.com](https://supabase.com)
+2. Fill in `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in `.env.local`
+3. Run the schema in **Supabase SQL Editor**: copy from `supabase/schema.sql`
+4. Restart the dev server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🤖 AI Planning
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The system panel calls `/api/goal-plan` (Next.js API Route):
+
+| Step | Detail |
+|------|--------|
+| Input | Goal description, target deadline, completion reward |
+| Output | Phase breakdown, weekly long-term tasks, daily small tasks |
+| Write-back | Populates main quest, phases, task list, and reward pool automatically |
+
+Set `OPENAI_BASE_URL` to use any OpenAI-compatible endpoint (DeepSeek, Groq, Ollama, etc.).
+
+## 🎮 Growth System Mechanics
+
+| Mechanic | Description |
+|----------|-------------|
+| **XP** | Earned by completing tasks, scaled by difficulty |
+| **Stamina (恒力)** | Daily willpower resource |
+| **Phases** | Each main quest has 3–5 phases with progress tracking |
+| **Attributes** | Custom body/growth stats with measurement history |
+| **Titles** | Achievement badges unlocked by milestones |
+| **Rewards** | Coin-gated real-world rewards to redeem |
+| **Inspiration Cards** | Motivational quotes and images |
+
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── api/goal-plan/      # AI planning endpoint
+│   ├── auth/               # Supabase auth callback
+│   ├── system/             # System panel page
+│   └── page.tsx            # Minimalist home
+├── components/             # UI components
+├── hooks/                  # Shared state hook
+└── lib/
+    ├── engine.ts           # Growth mechanics engine
+    ├── types.ts            # TypeScript interfaces
+    ├── goal-plan.ts        # AI plan parser & state applier
+    ├── supabase.ts         # Supabase client (browser)
+    └── supabase-server.ts  # Supabase client (server)
+supabase/
+└── schema.sql              # PostgreSQL schema + RLS policies
+electron/
+└── main.cjs                # Electron main process
+```
+
+## License
+
+[MIT](LICENSE)

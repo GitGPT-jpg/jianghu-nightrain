@@ -1,26 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-main: #07131f;
+  --bg-panel: rgba(8, 18, 28, 0.82);
+  --ink: #e8f2f8;
+  --accent-1: #0f766e;
+  --accent-2: #36e1b2;
+  --accent-3: #ffcb74;
+  --accent-4: #78b8ff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg-main);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(54, 225, 178, 0.12), transparent 32%),
+    radial-gradient(circle at top right, rgba(255, 203, 116, 0.1), transparent 26%),
+    linear-gradient(180deg, #06111c 0%, #081723 54%, #06101a 100%);
+  color: var(--ink);
+  font-family: var(--font-body), sans-serif;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(54, 225, 178, 0.25);
+  color: white;
 }
