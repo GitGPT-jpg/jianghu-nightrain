@@ -15,6 +15,7 @@ import { createBrowserSupabase, isSupabaseConfigured } from "@/lib/supabase";
 import type { AppState, SyncStatus, TaskSettlement } from "@/lib/types";
 
 const STORAGE_KEY = "system-upgrade-pwa-state-v1";
+const isGhPagesDemo = process.env.NEXT_PUBLIC_GH_PAGES === "1";
 
 function readLocalState() {
   if (typeof window === "undefined") {
@@ -22,7 +23,8 @@ function readLocalState() {
   }
 
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const storage = isGhPagesDemo ? window.sessionStorage : window.localStorage;
+    const raw = storage.getItem(STORAGE_KEY);
     return raw ? normalizeState(JSON.parse(raw) as Partial<AppState>) : createDefaultState();
   } catch {
     return createDefaultState();
@@ -34,7 +36,8 @@ function saveLocalState(state: AppState) {
     return;
   }
 
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  const storage = isGhPagesDemo ? window.sessionStorage : window.localStorage;
+  storage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
 async function loadCloudState(client: NonNullable<ReturnType<typeof createBrowserSupabase>>, userId: string) {

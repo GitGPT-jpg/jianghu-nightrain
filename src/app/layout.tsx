@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_SC, Noto_Serif_SC } from "next/font/google";
 
+import { DemoBanner } from "@/components/demo-banner";
 import { PwaRegister } from "@/components/pwa-register";
 import "./globals.css";
 
@@ -38,6 +39,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className={`${bodyFont.variable} ${displayFont.variable}`} suppressHydrationWarning>
       <body className="min-h-screen">
+        <DemoBanner />
         <PwaRegister />
         {children}
       </body>
