@@ -4,8 +4,6 @@
 
 A gamified personal growth system with RPG mechanics — AI-powered goal decomposition, task execution, XP & stamina rewards, multi-device cloud sync, PWA, and Electron desktop app.
 
-**[🌐 Live Demo →](https://gitgpt-jpg.github.io/jianghu-nightrain/)**
-
 ## ✨ Features
 
 - **🏠 Minimalist Dashboard** — Focus view: active tasks, current phase progress, and streak counter
@@ -92,6 +90,8 @@ Set `OPENAI_BASE_URL` to use any OpenAI-compatible endpoint (DeepSeek, Groq, Oll
 | **Inspiration Cards** | Motivational quotes and images |
 
 ## 📁 Project Structure
+
+**[🌐 Live Demo →](https://gitgpt-jpg.github.io/jianghu-nightrain/)**
 
 ```
 src/
