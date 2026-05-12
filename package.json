@@ -1,9 +1,9 @@
 {
-  "name": "system-upgrade-pwa",
+  "name": "jianghu-nightrain",
   "version": "0.1.0",
   "private": true,
-  "description": "江湖夜雨十年灯：系统流自我提升桌面与移动应用",
-  "author": "Codex",
+  "description": "Gamified personal growth system with RPG mechanics — AI goal decomposition, XP rewards, cloud sync, PWA & Electron desktop app",
+  "author": "GitGPT-jpg",
   "main": "electron/main.cjs",
   "scripts": {
     "dev": "next dev",
